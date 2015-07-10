@@ -23,5 +23,5 @@ public class ControlCriticalRegion
     }
 
     private static final int NTHREADS = 8;
-    private static final int CAPACITY = 10;
+    private static final int CAPACITY = 100;
 }

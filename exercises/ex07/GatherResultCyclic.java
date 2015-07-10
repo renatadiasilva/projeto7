@@ -51,7 +51,11 @@ _L2:
         boolean sign = rand.nextBoolean();
         for(int i = 0; i < 4; i++)
         {
-            int n = 0;
+        	if (queue.isEmpty()) {
+        		System.out.println("Queue empty!!");
+        		System.exit(-1);
+        	}
+           int n = 0;
             try
             {
                 n = ((Integer)queue.take()).intValue();

@@ -57,10 +57,10 @@ public class GatherResults
         int result = 0;
         boolean sign = rand.nextBoolean();
         for (int i = 0; i < NTHREADS; i++)
-//        while(!queue.isEmpty()) 
         {
         	if (queue.isEmpty()) {
         		System.out.println("Queue empty!!");
+        		System.exit(-1);
         	}
             int n = ((Integer)queue.take()).intValue();
             if(sign)

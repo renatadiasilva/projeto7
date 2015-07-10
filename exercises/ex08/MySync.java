@@ -17,10 +17,12 @@ public class MySync
     {
         System.out.println((new StringBuilder("Thread ")).append(Thread.currentThread().getName()).append(" with order ").append(myTicket).append(" arrived").toString());
         int order = myTicket;
+        
         if(myTicket + 1 > capacity)
             myTicket = 1;
         else
             myTicket++;
+        
         while(calledNumber != order) 
             wait();
         System.out.println((new StringBuilder("Thread ")).append(Thread.currentThread().getName()).append(" entered critical region and will be doing critical").append(" stuff for 5 seconds").toString());
