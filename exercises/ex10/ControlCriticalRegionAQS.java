@@ -5,10 +5,6 @@ import java.util.concurrent.Executors;
 
 public class ControlCriticalRegionAQS {
 
-//	Use the AbstractQueuedSynchronizer class to implement the enter() and leave()
-//	methods of exercise 8 (i.e., with no priorities). HINT: use the hasQueuedPredecessors()
-//	method.
-
 	private static final int NTHREADS = 8;
 	
 	public static void main(String args[]) {

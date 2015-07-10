@@ -8,7 +8,7 @@ import java.util.concurrent.Future;
 
 public class MyParallel {
 
-	final private static int NTHREADS = 2;  // aumentar???
+	final private static int NTHREADS = 2;
 
 	public static double runPar(float[] vector) {
 

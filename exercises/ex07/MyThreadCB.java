@@ -1,52 +1,57 @@
 package exercises.ex07;
 
-import java.io.PrintStream;
 import java.util.concurrent.*;
 
-public class MyThreadCB
-    implements Runnable
-{
+public class MyThreadCB implements Runnable {
 
-    public MyThreadCB(CyclicBarrier cb, ArrayBlockingQueue queue, int lim)
-    {
+    private CyclicBarrier cb;
+    private ArrayBlockingQueue<Integer> queue;
+    private int lim;
+
+    public MyThreadCB(CyclicBarrier cb, ArrayBlockingQueue<Integer> queue, 
+    		int lim) {
         this.cb = cb;
         this.queue = queue;
         this.lim = lim;
     }
 
-    public void run()
-    {
-        try
-        {
-            while(true) 
-            {
+    public void run()  {
+        try {
+        	// infinte loop
+            while(true) {
+            	// computation
                 int sum = 0;
-                System.out.println((new StringBuilder("Thread ")).append(Thread.currentThread().getName()).append(" is now going to compute the").append(" sum from 1 to ").append(lim).toString());
-                for(int i = 1; i <= lim; i++)
-                {
-                    Thread.sleep(1000L);
-                    System.out.println((new StringBuilder("Thread ")).append(Thread.currentThread().getName()).append(" is adding ").append(i).append(" to partial sum").toString());
+                Thread.sleep(3000);
+               System.out.println("Thread "+Thread.currentThread().getName()
+                		+" is now going to compute the"+" sum from 1 to "+lim);
+                
+                for(int i = 1; i <= lim; i++) {
+                    Thread.sleep(1000);
+                    System.out.println("Thread "+Thread.currentThread().getName()
+                    		+" is adding "+i+" to partial sum");
                     sum += i;
                 }
 
-                System.out.println((new StringBuilder("Thread ")).append(Thread.currentThread().getName()).append(" finished with sum = ").append(sum).append(" (and puts it in the queue)").toString());
-                queue.put(Integer.valueOf(sum));
-                System.out.println((new StringBuilder(String.valueOf(Thread.currentThread().getName()))).append(" waiting at barrier for the other threads").toString());
+                // put sum in the queue
+                System.out.println("Thread "+Thread.currentThread().getName()+
+                		" finished with sum = "+sum+" (and puts it in the queue)");
+                queue.put(sum);
+                
+                // wait for all the threads before moving to another round
+                System.out.println("Thread "+Thread.currentThread().getName()+
+                		" is waiting at barrier for the other threads");
                 cb.await();
-                System.out.println((new StringBuilder("Thread ")).append(Thread.currentThread().getName()).append(" is moving to another round\n").toString());
+                
+                System.out.println("Thread "+Thread.currentThread().getName()+
+                		" is moving to another round\n");
             }
-        }
-        catch(InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-        catch(BrokenBarrierException e)
-        {
+        } catch(InterruptedException e) {
+           System.out.println("Interrupting thread "+Thread.currentThread().getName());
+           e.printStackTrace();
+        } catch(BrokenBarrierException e) {
+            System.out.println("Interrupting thread "+Thread.currentThread().getName());
             e.printStackTrace();
         }
     }
 
-    private CyclicBarrier cb;
-    private ArrayBlockingQueue queue;
-    private int lim;
 }

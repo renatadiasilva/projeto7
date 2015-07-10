@@ -1,45 +1,38 @@
 package exercises.ex09;
 
-import java.io.PrintStream;
 import java.util.Random;
 
-// Referenced classes of package exercises.ex09:
-//            MySyncPriority
+public class MyThreadPriority implements Runnable {
 
-public class MyThreadPriority
-    implements Runnable
-{
+	static final int MAXSEC = 10;
+	private MySyncPriority sync;
+	private int maxPriority;
 
-    MyThreadPriority(MySyncPriority sync, int max)
-    {
-        this.sync = sync;
-        maxPriority = max;
-    }
+	public MyThreadPriority(MySyncPriority sync, int max) {
+		this.sync = sync;
+		this.maxPriority = max;
+	}
 
-    public void run()
-    {
-        do
-            try
-            {
-                do
-                {
-                    Random rand = new Random();
-                    sync.enter(rand.nextInt(maxPriority));
-                    Thread.sleep(5000L);
-                    sync.leave();
-                    int sec = rand.nextInt(10);
-                    Thread.sleep(sec * 1000);
-                } while(true);
-            }
-            catch(InterruptedException e)
-            {
-                System.out.println((new StringBuilder("Interrupting thread ")).append(Thread.currentThread().getName()).toString());
-                e.printStackTrace();
-            }
-        while(true);
-    }
+	public void run() {
+		try {
+			while (true) {
+				// compute random priority and try to enter
+				Random rand = new Random();
+				sync.enter(rand.nextInt(maxPriority));
 
-    static final int MAXSEC = 10;
-    private MySyncPriority sync;
-    private int maxPriority;
+				// enter critical region (simulate work)
+				Thread.sleep(5000);
+				sync.leave();
+				// leave critical region
+				
+				// non critical region
+				int sec = rand.nextInt(MAXSEC);
+				Thread.sleep(sec * 1000);
+			}
+		} catch(InterruptedException e) {
+			System.out.println("Interrupting thread "+Thread.currentThread().getName());
+			e.printStackTrace();
+		}
+	}
+
 }

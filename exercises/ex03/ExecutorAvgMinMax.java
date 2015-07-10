@@ -50,6 +50,11 @@ public class ExecutorAvgMinMax {
 		System.out.println("\nComputations time (without concurrency): "+MySequencial.runSeq(vector)+" "
 				+ "miliseconds");
 
+		// SEQUENTIAL VERSION
+
+		System.out.println("\nComputations time (without concurrency): "+MySequencial.runSeq(vector)+" "
+				+ "miliseconds");
+
 		// PARALLEL VERSION
 
 		System.out.println("\nComputations time (without concurrency): "+MyParallel.runPar(vector)+" "

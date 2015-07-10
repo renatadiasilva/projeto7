@@ -1,43 +1,34 @@
 package exercises.ex08;
 
-import java.io.PrintStream;
 import java.util.Random;
 
-// Referenced classes of package exercises.ex08:
-//            MySync
+public class MyThread implements Runnable {
 
-public class MyThread
-    implements Runnable
-{
+	static final int MAXSEC = 10;
+	private MySync sync;
 
-    MyThread(MySync sync)
-    {
-        this.sync = sync;
-    }
+	public MyThread(MySync sync) {
+		this.sync = sync;
+	}
 
-    public void run()
-    {
-        do
-            try
-            {
-                do
-                {
-                    sync.enter();
-                    Thread.sleep(5000L);
-                    sync.leave();
-                    Random rand = new Random();
-                    int sec = rand.nextInt(10);
-                    Thread.sleep(sec * 1000);
-                } while(true);
-            }
-            catch(InterruptedException e)
-            {
-                System.out.println((new StringBuilder("Interrupting thread ")).append(Thread.currentThread().getName()).toString());
-                e.printStackTrace();
-            }
-        while(true);
-    }
+	public void run() {
+		try {
+			while (true) {
+				sync.enter();
+				// enter critical region (simulate work)
+				Thread.sleep(5000);
+				sync.leave();
+				// leave critical region
+				
+				// non critical region
+				Random rand = new Random();
+				int sec = rand.nextInt(MAXSEC);
+				Thread.sleep(sec * 1000); 
+			}
+		} catch(InterruptedException e) {
+			System.out.println("Interrupting thread "+Thread.currentThread().getName());
+			e.printStackTrace();
+		}
+	}
 
-    static final int MAXSEC = 10;
-    private MySync sync;
 }

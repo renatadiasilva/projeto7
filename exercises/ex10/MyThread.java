@@ -14,7 +14,6 @@ public class MyThread implements Runnable {
 		this.mym = mym;
 	}
 
-	@Override
 	public void run() {
 		try {
 			while (true) {
@@ -22,13 +21,13 @@ public class MyThread implements Runnable {
 				mym.acquire(1);
 				System.out.println("Thread "+Thread.currentThread().getName()+" entered the critical region"+
 						" and will be doing critical stuff during a few seconds");
-				// enter critical region
+				// enter critical region (simulate work)
 				Thread.sleep(5000);
 				mym.release(0);
 				// leave critical region
 				System.out.println("Thread "+Thread.currentThread().getName()+" leaved the critical region");
 
-				//non critical region
+				// non critical region
 				Random rand = new Random();
 				int sec = rand.nextInt(MAXSEC);
 				Thread.sleep(sec*1000);
