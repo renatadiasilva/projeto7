@@ -11,6 +11,8 @@ public class HelloWorld {
     public static void main(String args[])
     {
         ExecutorService es = Executors.newFixedThreadPool(NTHREADS);
+        
+        //launch task/threads
         for(int i = 1; i <= NTASKS; i++)
             es.execute(new Task(i));
 

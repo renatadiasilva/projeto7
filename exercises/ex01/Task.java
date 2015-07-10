@@ -1,7 +1,5 @@
 package exercises.ex01;
 
-import java.io.PrintStream;
-
 public class Task implements Runnable {
 
     private int num;
