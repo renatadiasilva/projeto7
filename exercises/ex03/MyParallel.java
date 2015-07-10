@@ -14,12 +14,13 @@ public class MyParallel {
 
 		ExecutorService es = Executors.newFixedThreadPool(NTHREADS);
 
+		//initial time
 		long t0 = System.nanoTime(); 
 
 		System.out.println("\n--------------------- Starting parallel version ---------------------\n");
 		System.out.println("\n*** Vector Statistics ***\n");
 
-		//launch thread for max and min
+		// submit thread for max
 		Future<Float> tMax = es.submit(new Callable<Float>() {
 			@Override
 			public Float call() throws Exception {
@@ -32,6 +33,7 @@ public class MyParallel {
 			}
 		});
 
+		// submit thread for min
 		Future<Float> tMin = es.submit(new Callable<Float>() {
 			@Override
 			public Float call() throws Exception {
@@ -43,6 +45,7 @@ public class MyParallel {
 			}
 		});
 
+		// get max
 		try {
 			System.out.format("Maximum value: %6.2f\n", tMax.get());
 		} catch (InterruptedException | ExecutionException e) {
@@ -50,6 +53,8 @@ public class MyParallel {
 			e.printStackTrace();
 			System.exit(-1);
 		}
+		
+		// get min
 		try {
 			System.out.format("Minimum value: %6.2f\n", tMin.get());
 		} catch (InterruptedException | ExecutionException e) {
@@ -58,7 +63,7 @@ public class MyParallel {
 			System.exit(-1);
 		}
 
-		//Average
+		//compute average
 		float sum = 0.0f; 
 		for (int i = 0; i < vector.length; i++) sum += vector[i];
 		System.out.format("Avegare value: %6.2f\n", sum/vector.length);
@@ -66,8 +71,9 @@ public class MyParallel {
 		es.shutdown();
 
 		long t1 = System.nanoTime(); 
-		return (t1 - t0)/1000000.0; //in milliseconds
 
+		//computations time
+		return (t1 - t0)/1000000.0; //in milliseconds
 
 	}
 

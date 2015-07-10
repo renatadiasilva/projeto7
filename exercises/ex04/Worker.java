@@ -1,38 +1,37 @@
 package exercises.ex04;
 
-import java.io.PrintStream;
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class Worker
-    implements Runnable
-{
+public class Worker implements Runnable {
 
-    public Worker(ArrayBlockingQueue queue, String name)
-    {
+    private ArrayBlockingQueue<Integer> queue;
+    private String name;
+
+    public Worker(ArrayBlockingQueue<Integer> queue, String name) {
         this.queue = queue;
         this.name = name;
     }
 
-    public void run()
-    {
-        for(boolean stop = false; !stop;)
-            try
-            {
-                int val = ((Integer)queue.take()).intValue();
+    public void run() {
+    	
+    	boolean stop = false;
+        while (!stop)
+            try {
+            	// take value from queue
+                int val = queue.take();
                 if(val != -1)
-                    System.out.println((new StringBuilder("Worker ")).append(name).append(" took number from queue and computed its square-root: ").append("sqrt(").append(val).append(")=").append(Math.sqrt(val)).toString());
-                else
+                    System.out.println("Worker "+name
+                    		+" took number from queue and computed its square-root: "
+                    		+"sqrt("+val+")="+Math.sqrt(val));
+                else // if val = -1 stop thread
                     stop = true;
-            }
-            catch(InterruptedException e)
-            {
-                System.out.println((new StringBuilder("Error: interrupting thread ")).append(Thread.currentThread().getName()).toString());
+            } catch(InterruptedException e) {
+                System.out.println("Error: interrupting thread "+
+                		Thread.currentThread().getName());
                 e.printStackTrace();
             }
 
-        System.out.println((new StringBuilder("Worker ")).append(name).append(" stopped").toString());
+        System.out.println("Worker "+name+" stopped");
     }
 
-    private ArrayBlockingQueue queue;
-    private String name;
 }

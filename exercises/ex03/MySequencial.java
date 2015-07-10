@@ -4,6 +4,7 @@ public class MySequencial {
 
 	public static double runSeq(float[] vector) {
 
+		//initial time
 		long t0 = System.nanoTime(); 
 
 		System.out.println("\n--------------------- Starting sequential version ---------------------\n");
@@ -24,13 +25,15 @@ public class MySequencial {
 		
 		System.out.format("Minimum value: %6.2f\n", min);
 
-		// compute minimum value
+		// compute average value
 		float sum = 0.0f; 
 		for (int i = 0; i < vector.length; i++) sum += vector[i];
 		float avg = sum/vector.length;
 		System.out.format("Avegare value: %6.2f\n", avg);
 
 		long t1 = System.nanoTime(); 
+
+		//computations time
 		return (t1 - t0)/1000000.0; //in milliseconds
 	}
 

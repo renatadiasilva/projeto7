@@ -45,12 +45,7 @@ public class ExecutorAvgMinMax {
 			vector[i] = rand.nextFloat()*MAX; //random number between 0 and MAX
 		}
 
-		// SEQUENTIAL VERSION ---- just to gets all data to cache
-
-		System.out.println("\nComputations time (without concurrency): "+MySequencial.runSeq(vector)+" "
-				+ "miliseconds");
-
-		// SEQUENTIAL VERSION --- real run
+		// SEQUENTIAL VERSION
 
 		System.out.println("\nComputations time (without concurrency): "+MySequencial.runSeq(vector)+" "
 				+ "miliseconds");
@@ -58,10 +53,7 @@ public class ExecutorAvgMinMax {
 		// PARALLEL VERSION
 
 		System.out.println("\nComputations time (without concurrency): "+MyParallel.runPar(vector)+" "
-				+ "miliseconds");
-		
-		
-
+				+ "miliseconds");		
 
 	}
 
