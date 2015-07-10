@@ -12,7 +12,7 @@ public class HelloWorld {
     {
         ExecutorService es = Executors.newFixedThreadPool(NTHREADS);
         
-        //launch task/threads
+        // launch task/threads
         for(int i = 1; i <= NTASKS; i++)
             es.execute(new Task(i));
 
